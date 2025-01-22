@@ -15,3 +15,15 @@ HAProxy in this case acts as a reverse proxy balancing requests to Grafana and P
 
 - Clone repository
 - Run `vagrant up`
+
+> [!NOTE]
+> To access Grafana and Prometheus through HAProxy via a web browser, you need to configure the `/etc/hosts` file on your host. This will map the DNS names `grafana.local` and `prometheus.local` to the IP address of the `soufe1` host (192.168.55.20).
+
+Add the following at the bottom of `/etc/hosts` to configure DNS names:
+
+```
+192.168.55.20 grafana.local 
+192.168.55.20 prometheus.local
+```
+
+You can then reach Grafana at https://grafana.local:8443 and Prometheus at https://prometheus.local:8443.
