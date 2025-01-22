@@ -2,3 +2,4 @@
 image_haproxy: 'docker.io/library/haproxy:latest'
 image_grafana: 'docker.io/grafana/grafana:latest'
 image_prometheus: 'docker.io/prom/prometheus:latest'
+prometheus_id: '65534'

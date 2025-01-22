@@ -3,24 +3,24 @@
   ansible.builtin.file:
     path: '/containers_vols/prometheus/data'
     state: directory
-    owner: vagrant
-    group: vagrant
+    owner: "{{ prometheus_id }}"
+    group: "{{ prometheus_id }}"
     mode: '0755'
 
 - name: Create Prometheus config dir
   ansible.builtin.file:
     path: '/containers_vols/prometheus/config'
     state: directory
-    owner: vagrant
-    group: vagrant
+    owner: "{{ prometheus_id }}"
+    group: "{{ prometheus_id }}"
     mode: '0755'
 
 - name: Copy prometheus.yml
   ansible.builtin.template:
     src: templates/prometheus.yml.j2
     dest: '/containers_vols/prometheus/config/prometheus.yml' 
-    owner: vagrant
-    group: vagrant
+    owner: "{{ prometheus_id }}"
+    group: "{{ prometheus_id }}"
     mode: '0755'
 
 - name: Pull Prometheus image
