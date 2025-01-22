@@ -1,5 +1,5 @@
 ---
-- name: Create Prometheus dir
+- name: Create Prometheus data dir
   ansible.builtin.file:
     path: '/containers_vols/prometheus/data'
     state: directory
@@ -7,7 +7,7 @@
     group: vagrant
     mode: '0755'
 
-- name: Create Prometheus dir
+- name: Create Prometheus config dir
   ansible.builtin.file:
     path: '/containers_vols/prometheus/config'
     state: directory
@@ -34,6 +34,7 @@
     image: '{{ image_prometheus }}'
     volume:
       - '/containers_vols/prometheus/config/prometheus.yml:/etc/prometheus/prometheus.yml:z'
+      - '/containers_vols/prometheus/data/:/prometheus:z'
     expose:
       - 9090
     ports:
