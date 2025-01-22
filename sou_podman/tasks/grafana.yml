@@ -1,0 +1,31 @@
+---
+- name: Create Grafana dir
+  ansible.builtin.file:
+    path: '/containers_vols/grafana'
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode: '0755'
+
+- name: Copy grafana.ini
+  ansible.builtin.template:
+    src: templates/grafana.ini.j2
+    dest: '/containers_vols/grafana/grafana.ini' 
+    owner: vagrant
+    group: vagrant
+    mode: '0755'
+
+- name: Pull Grafana image
+  containers.podman.podman_image:
+    name: '{{ image_grafana }}'
+    pull: true
+
+- name: Create Grafana container
+  containers.podman.podman_container:
+    name: grafana
+    image: '{{ image_grafana }}'
+    volume:
+      - /containers_vols/grafana/grafana.ini:/etc/grafana/grafana.ini:z
+    ports:
+      - '3000:3000'
+    state: started

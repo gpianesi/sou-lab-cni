@@ -1,0 +1,8 @@
+---
+- name: Run haproxy in a container on soufe1 that acts as reverse proxy for containers grafana and prometheus on soube2 
+  hosts: all
+  become: True
+  become_method: sudo
+  become_user: root
+  roles:
+    - sou_podman

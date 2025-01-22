@@ -1,0 +1,31 @@
+---
+- name: Create haproxy config dir
+  ansible.builtin.file:
+    path: /containers_vols/haproxy
+    owner: vagrant
+    group: vagrant
+    state: directory
+    mode: '0755'
+
+- name: Copy haproxy.cfg
+  ansible.builtin.template:
+    src: templates/haproxy.cfg.j2
+    dest: /containers_vols/haproxy/haproxy.cfg
+    owner: vagrant
+    group: vagrant
+    mode: '0755'
+
+- name: Pull HAProxy image
+  containers.podman.podman_image:
+    name: "{{ image_haproxy }}"
+    pull: true
+
+- name: Create HAProxy container
+  containers.podman.podman_container:
+    name: haproxy
+    image: "{{ image_haproxy }}"
+    volume:
+      - '/containers_vols/haproxy/:/usr/local/etc/haproxy:z'
+    ports:
+      - '8080:8080'
+    state: started

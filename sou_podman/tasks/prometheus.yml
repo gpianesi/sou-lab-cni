@@ -1,0 +1,41 @@
+---
+- name: Create Prometheus dir
+  ansible.builtin.file:
+    path: '/containers_vols/prometheus/data'
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode: '0755'
+
+- name: Create Prometheus dir
+  ansible.builtin.file:
+    path: '/containers_vols/prometheus/config'
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode: '0755'
+
+- name: Copy prometheus.yml
+  ansible.builtin.template:
+    src: templates/prometheus.yml.j2
+    dest: '/containers_vols/prometheus/config/prometheus.yml' 
+    owner: vagrant
+    group: vagrant
+    mode: '0755'
+
+- name: Pull Prometheus image
+  containers.podman.podman_image:
+    name: '{{ image_prometheus }}'
+    pull: true
+
+- name: Create Prometheus container
+  containers.podman.podman_container:
+    name: prometheus
+    image: '{{ image_prometheus }}'
+    volume:
+      - '/containers_vols/prometheus/config/prometheus.yml:/etc/prometheus/prometheus.yml:z'
+    expose:
+      - 9090
+    ports:
+      - '9090:9090'
+    state: started

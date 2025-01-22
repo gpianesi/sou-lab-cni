@@ -1,0 +1,19 @@
+---
+- name: Include vars
+  include_vars: vars/main.yml
+
+- name: Install podman
+  import_tasks: podman.yml
+
+- name: Create HAProxy container
+  import_tasks: haproxy.yml
+  when: inventory_hostname == "soufe1"
+  
+
+- name: Create Prometheus container
+  import_tasks: prometheus.yml
+  when: inventory_hostname == "soube2"
+
+- name: Create Grafana container
+  import_tasks: grafana.yml
+  when: inventory_hostname == "soube2"
