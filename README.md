@@ -13,6 +13,7 @@ HAProxy in this case acts as a reverse proxy balancing requests to Grafana and P
 --- 
 ### **Usage**
 
+- Install Vagrant and VirtualBox
 - Clone repository
 - Run `vagrant up`
 
