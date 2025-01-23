@@ -4,7 +4,7 @@ Vagrant.configure("2") do |config|
 
   vms = {
          "soufe1" => "192.168.55.20",
-	 "soube2" => "192.168.55.21"
+         "soube2" => "192.168.55.21"
 	}
 
   vms.each do |name, ip|
