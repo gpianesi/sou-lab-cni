@@ -4,7 +4,6 @@ Vagrant.configure("2") do |config|
   # Create soufe1
   config.vm.define "soufe1" do |soufe1|
     soufe1.vm.network "private_network", ip: "192.168.55.20"
-    soufe1.vm.network "forwarded_port", guest: 8080, host: 8080
     config.vm.provider "virtualbox" do |v|
       v.memory = 2048
       v.cpus = 1
